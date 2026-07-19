@@ -178,7 +178,6 @@ function initSortable() {
 
     // SortableJS wird nicht mehr für Einträge verwendet, nur noch die Pfeile.
     // Drag-and-Drop für Einträge ist hiermit entfernt.
-    new Sortable(document.getElementById('weiterbildung-fields'), { animation: 150, onEnd: onSortUpdate, ghostClass: 'sortable-ghost' });
     
     // Event-Listener für die neuen "Verschieben"-Buttons
     document.getElementById('cv-form').addEventListener('click', (event) => {
