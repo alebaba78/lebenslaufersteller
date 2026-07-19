@@ -105,6 +105,7 @@ function closeFeedbackModal() {
     setTimeout(() => {
         modal.style.display = 'none';
         // Reset form for next time
+        document.getElementById('feedbackError').style.display = 'none';
         document.getElementById('feedbackForm').style.display = 'block';
         document.getElementById('feedbackSuccess').style.display = 'none';
     }, 300);
@@ -127,7 +128,12 @@ document.getElementById('feedbackForm').addEventListener('submit', async functio
         form.style.display = 'none';
         document.getElementById('feedbackSuccess').style.display = 'block';
     } catch (error) {
-        alert('Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.');
+        console.error('Feedback submission error:', error);
+        form.style.display = 'none';
+        document.getElementById('feedbackError').style.display = 'block';
+    } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Absenden';
     }
 });
 

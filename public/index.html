@@ -228,6 +228,14 @@
                     <p class="feedback-success-text">Dein Vorschlag wurde erfolgreich an mich gesendet.</p>
                     <button onclick="closeFeedbackModal()" class="feedback-close-button">Schließen</button>
                 </div>
+                <div id="feedbackError" style="display: none;" class="feedback-error-message">
+                    <div class="feedback-error-icon-wrapper">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h4 class="feedback-error-title">Fehler beim Senden</h4>
+                    <p class="feedback-error-text">Leider ist ein Fehler aufgetreten. Bitte versuche es später erneut.</p>
+                    <button onclick="closeFeedbackModal()" class="feedback-close-button">Schließen</button>
+                </div>
             </div>
         </div>
     </div>
