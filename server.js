@@ -1,5 +1,4 @@
 const express = require('express');
-const puppeteer = require('puppeteer');
 const path = require('path');
 
 const PREDEFINED_COLORS = {
@@ -60,6 +59,7 @@ app.post('/generate-pdf', async (req, res) => {
     const data = req.body; // Die Lebenslaufdaten vom Frontend
     // HTML-Template für das PDF erstellen.
     // Hier füllst du die Daten in eine HTML-Struktur ein.
+
     const htmlContent = `
         <html>
             <head>
@@ -136,6 +136,7 @@ app.post('/generate-pdf', async (req, res) => {
     `;
 
     try {
+        const puppeteer = await import('puppeteer');
         const browser = await puppeteer.launch({
             // Für den Betrieb auf vielen Linux-Systemen erforderlich
             args: ['--no-sandbox', '--disable-setuid-sandbox']

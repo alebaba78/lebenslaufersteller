@@ -1,7 +1,7 @@
 /* style.css */
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background-color: #f4f7f6;
+    background-color: #f8fafc; /* slate-50 */
     color: #333;
     margin: 0;
     padding: 30px;
@@ -19,15 +19,16 @@ body {
 
 .editor-panel {
     background-color: #ffffff;
-    padding: 30px 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    border-radius: 1rem; /* rounded-2xl */
+    border: 1px solid #e2e8f0; /* slate-200 */
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
 }
 
 .preview-panel {
-    background-color: #e8e8e8;
+    background-color: #f8fafc; /* slate-50 */
     padding: 40px;
-    border-radius: 10px;
+    border-radius: 1rem; /* rounded-2xl */
     /* Sorgt dafür, dass das Panel "kleben" bleibt */
     position: sticky;
     top: 30px;
@@ -74,7 +75,7 @@ body {
 header {
     text-align: center;
     margin-bottom: 30px;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e2e8f0; /* slate-200 */
     padding-bottom: 20px;
 }
 
@@ -89,13 +90,13 @@ header {
     background-color: #f1f5f9; /* slate-100 */
     color: #64748b; /* slate-500 */
     border: none;
-    border-radius: 9999px;
+    border-radius: 9999px; /* rounded-full */
     padding: 0.625rem;
     cursor: pointer;
     transition: color 0.2s;
 }
 .theme-toggle-btn:hover {
-    color: #10b981; /* emerald-600 */
+    color: #2563eb; /* blue-600 */
 }
 .action-buttons {
     display: flex;
@@ -159,11 +160,11 @@ header {
 }
 
 input:checked + .slider {
-  background-color: #3498db;
+  background-color: #2563eb; /* blue-600 */
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #3498db;
+  box-shadow: 0 0 1px #2563eb;
 }
 
 input:checked + .slider:before {
@@ -228,7 +229,7 @@ h1 {
 
 .section-title {
     color: #34495e;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e2e8f0; /* slate-200 */
     padding-bottom: 5px;
     margin-top: 30px;
     margin-bottom: 20px;
@@ -301,7 +302,7 @@ h1 {
     box-shadow: 0 0 5px rgba(0,0,0,0.2);
 }
 .color-swatch.selected {
-    border-color: #3498db;
+    border-color: #2563eb; /* blue-600 */
 }
 
 input[type="text"],
@@ -311,8 +312,8 @@ textarea {
     width: 100%;
     padding: 14px;
     margin-bottom: 15px;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
+    border: 1px solid #cbd5e1; /* slate-300 */
+    border-radius: 0.75rem; /* rounded-xl */
     box-sizing: border-box;
     font-size: 16px;
     background-color: #f9f9f9;
@@ -325,8 +326,8 @@ input[type="email"]:focus,
 input[type="tel"]:focus,
 textarea:focus {
     outline: none;
-    border-color: #3498db;
-    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+    border-color: #2563eb; /* blue-600 */
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.3);
 }
 
 textarea {
@@ -377,17 +378,17 @@ textarea {
     width: 100%;
     padding: 12px;
     margin-bottom: 15px;
-    border: 2px dashed #3498db;
-    border-radius: 5px;
-    background-color: #f8f9fa;
+    border: 2px dashed #cbd5e1; /* slate-300 */
+    border-radius: 1rem; /* rounded-2xl */
+    background-color: #f8fafc; /* slate-50 */
     text-align: center;
     cursor: pointer;
-    color: #3498db;
+    color: #2563eb; /* blue-600 */
     font-weight: bold;
 }
 
 .photo-upload-label:hover {
-    background-color: #eaf4fc;
+    border-color: #60a5fa; /* blue-400 */
 }
 
 #photo-upload {
@@ -397,8 +398,8 @@ textarea {
 .dynamic-entry {
     padding: 15px;
     border: 1px dashed #ccc;
-    border-radius: 5px;
-    margin-bottom: 15px;    background-color: #fafafa;
+    border-radius: 0.75rem; /* rounded-xl */
+    margin-bottom: 15px;    background-color: #f8fafc; /* slate-50 */
     position: relative;
 }
 
@@ -498,11 +499,11 @@ textarea {
 
 .add-btn,
 .submit-btn {
-    background-color: #3498db;
+    background-color: #2563eb; /* blue-600 */
     color: white;
     padding: 10px 15px;
     border: none;
-    border-radius: 5px;
+    border-radius: 0.75rem; /* rounded-xl */
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s;
@@ -510,7 +511,7 @@ textarea {
 
 .add-btn:hover,
 .submit-btn:hover {
-    background-color: #2980b9;
+    background-color: #1d4ed8; /* blue-700 */
 }
 
 .submit-btn {
@@ -522,13 +523,14 @@ textarea {
 
 /* Dark Mode Styles */
 .dark {
-    background-color: #0f172a; /* slate-900 */
+    background-color: #020617; /* slate-950, slightly darker for more contrast */
     color: #e2e8f0; /* slate-200 */
 }
 
 .dark .editor-panel,
 .dark .preview-panel {
     background-color: #1e293b; /* slate-800 */
+    border-color: #334155; /* slate-700 */
 }
 
 .dark header {
@@ -570,18 +572,18 @@ textarea {
 .dark input[type="email"]:focus,
 .dark input[type="tel"]:focus,
 .dark textarea:focus {
-    border-color: #10b981; /* emerald-500 */
-    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.3);
+    border-color: #60a5fa; /* blue-400 */
+    box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.3);
 }
 
 .dark .photo-upload-label {
-    border-color: #10b981; /* emerald-600 */
+    border-color: #475569; /* slate-600 */
     background-color: #334155; /* slate-700 */
-    color: #34d399; /* emerald-400 */
+    color: #60a5fa; /* blue-400 */
 }
 
 .dark .photo-upload-label:hover {
-    border-color: #34d399; /* emerald-400 */
+    border-color: #2563eb; /* blue-600 */
 }
 
 .dark .dynamic-entry {
@@ -590,12 +592,12 @@ textarea {
 
 .dark .add-btn,
 .dark .submit-btn {
-    background-color: #10b981; /* emerald-600 */
+    background-color: #2563eb; /* blue-600 */
 }
 
 .dark .add-btn:hover,
 .dark .submit-btn:hover {
-    background-color: #059669; /* emerald-700 */
+    background-color: #1d4ed8; /* blue-700 */
 }
 
 .dark .theme-toggle-btn {
@@ -616,7 +618,7 @@ textarea {
     position: fixed;
     bottom: 24px;
     right: 24px;
-    background-color: #10b981;
+    background-color: #2563eb; /* blue-600 */
     color: white;
     border: none;
     border-radius: 9999px;
@@ -645,7 +647,7 @@ textarea {
     position: fixed;
     inset: 0;
     z-index: 100;
-    background-color: rgba(15, 23, 42, 0.6); /* slate-900/60 */
+    background-color: rgba(15, 23, 42, 0.8); /* slate-900/80 */
     display: none;
     align-items: center;
     justify-content: center;
@@ -654,7 +656,7 @@ textarea {
     transition: opacity 0.3s ease;
 }
 .feedback-modal-content {
-    background-color: #ffffff;
+    background-color: #ffffff; /* white */
     border-radius: 1.5rem;
     box-shadow: 0 25px 50px -12px rgba(0,0,0,.25);
     width: 100%;
@@ -668,7 +670,7 @@ textarea {
     padding: 1.25rem 1.5rem;
     border-bottom: 1px solid #e2e8f0; /* slate-200 */
     font-weight: bold;
-    color: #059669; /* emerald-600 */
+    color: #2563eb; /* blue-600 */
     display: flex;
     justify-content: space-between;
     align-items: center;
