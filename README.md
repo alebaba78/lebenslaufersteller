@@ -59,6 +59,9 @@ Ein moderner, web-basierter Editor zur schnellen und einfachen Erstellung profes
     ```
 5.  **Reverse Proxy einrichten:** Verwenden Sie einen Webserver wie **Nginx** als Reverse Proxy, um Anfragen von Ihrer Domain an die auf Port 3000 laufende Node.js-Anwendung weiterzuleiten. Es wird dringend empfohlen, ein SSL-Zertifikat (z.B. via Let's Encrypt) einzurichten.
 
+### Formspree einrichten
+Um Formspree für Feedbacks zu verwenden muss in "index.html" in der Zeile 212 die URL, die von Formspree bereitgestellt wird, hinzugefügt werden.
+
 ## 🤖 Ein Projekt mit Gemini
 
 Dieses Projekt wurde maßgeblich mit Unterstützung von **Google's Gemini** entwickelt. Von der Code-Erstellung und -Optimierung über die Fehlerbehebung bis hin zur Konzeption von Features und der Erstellung dieser Dokumentation war Gemini ein integraler Bestandteil des Entwicklungsprozesses.
