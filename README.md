@@ -28,7 +28,7 @@ Ein moderner, web-basierter Editor zur schnellen und einfachen Erstellung profes
 
 1.  **Repository klonen:**
     ```bash
-    git clone <https://github.com/ihr-benutzername/lebenslaufersteller.git>
+    git clone https://github.com/alebaba78/lebenslaufersteller.git
     ```
 2.  **In das Verzeichnis wechseln:**
     ```bash
