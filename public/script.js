@@ -68,6 +68,23 @@ document.addEventListener('DOMContentLoaded', () => {
     if (localStorage.getItem('theme') === 'dark') {
         document.body.classList.add('dark');
     }
+
+    // Logic for hiding navbar on scroll down
+    let lastScrollY = window.scrollY;
+    const nav = document.querySelector('.main-nav');
+
+    window.addEventListener('scroll', () => {
+        const currentScrollY = window.scrollY;
+
+        if (currentScrollY > lastScrollY && currentScrollY > nav.offsetHeight) {
+            // Scrolling down
+            nav.classList.add('nav-hidden');
+        } else {
+            // Scrolling up
+            nav.classList.remove('nav-hidden');
+        }
+        lastScrollY = currentScrollY <= 0 ? 0 : currentScrollY;
+    });
 });
 
 function openFeedbackModal() {
