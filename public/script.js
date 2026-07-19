@@ -89,6 +89,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function toggleMobilePreview() {
     document.body.classList.toggle('mobile-preview-active');
+
+    // Wenn die Vorschau gerade aktiviert wurde, muss die Skalierung neu berechnet werden.
+    if (document.body.classList.contains('mobile-preview-active')) {
+        updatePreviewScaling();
+    }
 }
 
 function openFeedbackModal() {
@@ -226,11 +231,23 @@ function updatePreviewScaling() {
     const resumePreview = document.getElementById('resume-preview');
     if (!previewPanel || !resumePreview) return;
 
-    // 80px for padding inside preview-panel
-    const availableWidth = previewPanel.clientWidth - 80;
-    const a4Width = 794; // 210mm in px at 96dpi is a good approximation
+    // Konstanten für A4-Dimensionen in Pixel (bei 96 DPI)
+    const a4WidthPx = 794;
+    const a4HeightPx = 1123;
 
-    const scale = availableWidth / a4Width;
+    // Verfügbare Breite und Höhe im Vorschau-Panel berechnen
+    // 80px für horizontales Padding (40px links + 40px rechts)
+    // 60px für vertikales Padding (30px oben + 30px unten)
+    const availableWidth = previewPanel.clientWidth - 80;
+    const availableHeight = previewPanel.clientHeight - 60;
+
+    // Skalierungsfaktor basierend auf Breite und Höhe berechnen
+    const scaleBasedOnWidth = availableWidth / a4WidthPx;
+    const scaleBasedOnHeight = availableHeight / a4HeightPx;
+
+    // Den kleineren der beiden Skalierungsfaktoren wählen, damit alles passt
+    const scale = Math.min(scaleBasedOnWidth, scaleBasedOnHeight);
+
     resumePreview.style.setProperty('--preview-scale', scale);
 }
 

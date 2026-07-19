@@ -1,15 +1,15 @@
 /* style.css */
 body.has-navbar {
-    padding-top: 2px; /* Platz für die sticky navbar */
+    padding-top: 4rem; /* Platz für die sticky navbar (64px) */
 }
 
 .main-nav {
     border-bottom: 1px solid #e2e8f0; /* slate-200 */
     background-color: rgba(255, 255, 255, 0.5); /* bg-white/50 */
     backdrop-filter: blur(16px);
-    position: sticky;
+    position: fixed;
     top: 0;
-    z-index: 40;
+    z-index: 50;
     transition: top 0.3s ease-in-out;
     width: 100%;
     left: 0;
@@ -55,6 +55,7 @@ body {
     background-color: #f8fafc; /* slate-50 */
     color: #333;
     margin: 0;
+    overflow-x: hidden; /* Verhindert horizontales Scrollen auf der gesamten Seite */
     min-height: 100vh;
 }
 
@@ -89,7 +90,7 @@ body {
 
 .preview-wrapper {
     /* Dieser Wrapper sorgt dafür, dass der Platz für die skalierte Vorschau korrekt reserviert wird */
-    height: calc(297mm * var(--preview-scale, 0.5));
+    height: calc(1123px * var(--preview-scale, 0.5));
 }
 
 #resume-preview {
@@ -987,10 +988,18 @@ textarea {
         background-color: #4b5563;
         overflow-y: scroll;
         padding-top: 60px; /* Space for close button */
+        box-sizing: border-box; /* Wichtig für korrekte Höhenberechnung */
     }
 
     .dark .preview-panel {
         background-color: #111827; /* gray-900 */
+    }
+
+    /* Korrigiert die Skalierung und Positionierung der Vorschau im mobilen Modus */
+    .mobile-preview-active #resume-preview {
+        transform-origin: top left;
+        transform: scale(var(--preview-scale, 0.5));
+        margin: 30px auto; /* Zentriert die skalierte Vorschau mit etwas Abstand oben */
     }
 
     .mobile-preview-btn {
@@ -1006,7 +1015,9 @@ textarea {
     }
 
     body.mobile-preview-active .main-nav,
-    body.mobile-preview-active .editor-panel {
-        display: none; /* Hide other elements when preview is active */
+    body.mobile-preview-active .editor-panel,
+    body.mobile-preview-active .feedback-btn {
+        opacity: 0;
+        pointer-events: none; /* Verhindert Interaktion mit den unsichtbaren Elementen */
     }
 }
