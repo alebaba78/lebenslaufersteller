@@ -779,6 +779,9 @@ function clearForm(confirmClear = true) {
 async function handleFormSubmit(event) {
     event.preventDefault(); // Verhindert das Neuladen der Seite
 
+    const submitButton = event.target.querySelector('.submit-btn');
+    const originalButtonText = submitButton.innerHTML;
+
     // Hilfsfunktion, um das Bild als Data-URL zu lesen (asynchron)
     const getPhotoDataUrl = () => {
         return new Promise((resolve) => {
@@ -794,6 +797,10 @@ async function handleFormSubmit(event) {
         });
     };
 
+    // Ladezustand anzeigen
+    submitButton.disabled = true;
+    submitButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> PDF wird generiert...';
+
     const photoDataUrl = await getPhotoDataUrl();
 
     const cvData = collectAllData();    
@@ -805,26 +812,42 @@ async function handleFormSubmit(event) {
         cvData.photoDataUrl = null;
     }
 
-    // Daten an das Backend senden
-    const response = await fetch('generate-pdf', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(cvData),
-    });
+    try {
+        // Daten an das Backend senden
+        const response = await fetch('generate-pdf', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(cvData),
+        });
 
-    if (response.ok) {
-        // Die Antwort ist ein PDF, das wir als Blob (Binary Large Object) erhalten
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = "lebenslauf.pdf"; // Dateiname für den Download
-        a.click();
-        window.URL.revokeObjectURL(url);
-    } else {
-        alert("Fehler bei der PDF-Erstellung.");
+        if (response.ok) {
+            // Erfolgszustand anzeigen
+            submitButton.innerHTML = '<i class="fa-solid fa-check"></i> Erfolgreich!';
+
+            // Die Antwort ist ein PDF, das wir als Blob (Binary Large Object) erhalten
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = "lebenslauf.pdf"; // Dateiname für den Download
+            a.click();
+            window.URL.revokeObjectURL(url);
+        } else {
+            throw new Error('Server responded with an error.');
+        }
+    } catch (error) {
+        console.error('PDF Generation Error:', error);
+        // Fehlerzustand anzeigen
+        submitButton.innerHTML = '<i class="fa-solid fa-times"></i> Fehler!';
+        alert("Fehler bei der PDF-Erstellung. Bitte prüfen Sie die Server-Logs für mehr Details.");
+    } finally {
+        // Button nach einer kurzen Verzögerung zurücksetzen
+        setTimeout(() => {
+            submitButton.disabled = false;
+            submitButton.innerHTML = originalButtonText;
+        }, 2000);
     }
 }
 
