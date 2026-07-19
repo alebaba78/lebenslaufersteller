@@ -15,7 +15,7 @@ const port = 3000;
 
 // Middleware, um JSON-Daten zu verarbeiten und statische Dateien (HTML, CSS) bereitzustellen
 // Erhöhe das Limit für JSON-Payloads, um große Bilder (als Data-URL) zu ermöglichen
-app.use(express.json({ limit: '10mb' }));
+app.use(express.json({ limit: '100mb' }));
 app.use(express.static(path.join(__dirname, 'public'))); // Annahme: Dein HTML/CSS/JS liegt im Ordner "public"
 
 // Hilfsfunktion zum Escapen von HTML, um Cross-Site-Scripting (XSS) zu verhindern

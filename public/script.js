@@ -807,7 +807,7 @@ async function handleFormSubmit(event) {
     }
 
     // Daten an das Backend senden
-    const response = await fetch('/generate-pdf', {
+    const response = await fetch('generate-pdf', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
