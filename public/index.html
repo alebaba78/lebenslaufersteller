@@ -154,6 +154,7 @@
 
         <!-- Rechte Spalte: Vorschau -->
         <div class="preview-panel">
+            <button class="mobile-preview-close-btn" onclick="toggleMobilePreview()"><i class="fa-solid fa-times"></i> Schließen</button>
             <div class="preview-wrapper">
                 <div id="resume-preview">
                     <!-- Neue Zwei-Spalten-Struktur für die Vorschau -->
@@ -204,6 +205,12 @@
             </div>
         </div>
     </div>
+
+    <!-- Mobile Preview Toggle Button -->
+    <button onclick="toggleMobilePreview()" class="mobile-preview-btn">
+        <i class="fa-solid fa-eye"></i>
+        <span>Vorschau</span>
+    </button>
 
     <!-- Feedback Section -->
     <button onclick="openFeedbackModal()" class="feedback-btn">

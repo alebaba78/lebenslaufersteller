@@ -87,6 +87,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+function toggleMobilePreview() {
+    document.body.classList.toggle('mobile-preview-active');
+}
+
 function openFeedbackModal() {
     const modal = document.getElementById('feedbackModal');
     const content = modal.querySelector('.feedback-modal-content');
@@ -562,11 +566,6 @@ function collectAllData() {
             degree: e.querySelector('.education-degree').value,
             school: e.querySelector('.education-school').value,
             period: e.querySelector('.education-period').value
-        })),
-        weiterbildung: Array.from(document.querySelectorAll('.weiterbildung-entry')).map(e => ({
-            title: e.querySelector('.weiterbildung-title').value,
-            institution: e.querySelector('.weiterbildung-institution').value,
-            period: e.querySelector('.weiterbildung-period').value
         })),
         weiterbildung: Array.from(document.querySelectorAll('.weiterbildung-entry')).map(e => ({
             title: e.querySelector('.weiterbildung-title').value,
