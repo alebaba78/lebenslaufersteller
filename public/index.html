@@ -220,7 +220,14 @@
                     <textarea name="message" required rows="4" placeholder="Was kann ich verbessern?"></textarea>
                     <button type="submit" class="submit-btn">Absenden</button>
                 </form>
-                <div id="feedbackSuccess" style="display: none;" class="feedback-success-message">Vielen Dank für Ihr Feedback!</div>
+                <div id="feedbackSuccess" style="display: none;" class="feedback-success-message">
+                    <div class="feedback-success-icon-wrapper">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    </div>
+                    <h4 class="feedback-success-title">Vielen Dank!</h4>
+                    <p class="feedback-success-text">Dein Vorschlag wurde erfolgreich an mich gesendet.</p>
+                    <button onclick="closeFeedbackModal()" class="feedback-close-button">Schließen</button>
+                </div>
             </div>
         </div>
     </div>

@@ -752,6 +752,44 @@ textarea {
     font-weight: bold;
 }
 
+.feedback-success-icon-wrapper {
+    width: 4rem; /* w-16 */
+    height: 4rem; /* h-16 */
+    background-color: #dcfce7; /* green-100 */
+    color: #16a34a; /* green-600 */
+    border-radius: 9999px; /* rounded-full */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem auto;
+}
+
+.feedback-success-icon-wrapper .w-8 { width: 2rem; }
+.feedback-success-icon-wrapper .h-8 { height: 2rem; }
+
+.feedback-success-title {
+    font-size: 1.25rem; /* text-xl */
+    font-weight: 700;
+    color: #1e293b; /* slate-900 */
+    margin-bottom: 0.5rem;
+}
+
+.feedback-success-text {
+    color: #475569; /* slate-600 */
+}
+
+.feedback-close-button {
+    margin-top: 1.5rem;
+    padding: 0.625rem 1.5rem;
+    border-radius: 0.75rem; /* rounded-xl */
+    background-color: #f1f5f9; /* slate-100 */
+    color: #334155; /* slate-700 */
+    font-weight: 500;
+    transition: background-color 0.2s;
+    border: none;
+    cursor: pointer;
+}
+
 /* Dark mode for Feedback Modal */
 .dark .feedback-modal-content {
     background-color: #1e293b; /* slate-800 */
@@ -759,6 +797,26 @@ textarea {
 }
 .dark .feedback-modal-header {
     border-bottom-color: #334155; /* slate-700 */
+}
+.dark .feedback-success-icon-wrapper {
+    background-color: rgba(74, 222, 128, 0.1); /* green-900/30 */
+    color: #4ade80; /* green-400 */
+}
+.dark .feedback-success-title {
+    color: #f8fafc; /* slate-50 */
+}
+.dark .feedback-success-text {
+    color: #94a3b8; /* slate-400 */
+}
+.dark .feedback-close-button {
+    background-color: #334155; /* slate-700 */
+    color: #cbd5e1; /* slate-300 */
+}
+.feedback-close-button:hover {
+    background-color: #e2e8f0; /* slate-200 */
+}
+.dark .feedback-close-button:hover {
+    background-color: #475569; /* slate-600 */
 }
 
 /* Custom Scrollbar Styles */

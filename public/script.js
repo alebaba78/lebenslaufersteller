@@ -110,10 +110,25 @@ function closeFeedbackModal() {
     }, 300);
 }
 
-document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+document.getElementById('feedbackForm').addEventListener('submit', async function(event) {
     event.preventDefault();
-    // Hier könnte die Formspree AJAX Logik stehen, aber die Basic HTML Methode funktioniert auch
-    this.submit();
+    const form = event.target;
+    const data = new FormData(form);
+    const submitButton = form.querySelector('button[type="submit"]');
+    submitButton.disabled = true;
+    submitButton.textContent = 'Sende...';
+
+    try {
+        const response = await fetch(form.action, {
+            method: form.method,
+            body: data,
+            headers: { 'Accept': 'application/json' }
+        });
+        form.style.display = 'none';
+        document.getElementById('feedbackSuccess').style.display = 'block';
+    } catch (error) {
+        alert('Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.');
+    }
 });
 
 function toggleTheme() {
