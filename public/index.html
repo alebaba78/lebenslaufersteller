@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lebenslauf-Ersteller</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main-layout">
+        <!-- Linke Spalte: Editor -->
+        <div class="editor-panel">
+            <header>
+                <h1>Lebenslauf-Ersteller</h1>
+                <div class="header-controls">
+                    <p>Füllen Sie die Felder aus und sehen Sie die Vorschau live auf der rechten Seite.</p>
+                    <button id="themeToggle" class="theme-toggle-btn" title="Hell/Dunkel Modus umschalten">
+                        <svg id="theme-icon-sun" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                        <svg id="theme-icon-moon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="action-buttons">
+                    <button type="button" id="save-data-btn" class="add-btn"><i class="fa-solid fa-save"></i> Daten speichern</button>
+                    <button type="button" id="load-data-btn" class="add-btn"><i class="fa-solid fa-folder-open"></i> Daten laden</button>
+                    <button type="button" id="export-data-btn" class="add-btn"><i class="fa-solid fa-file-export"></i> Exportieren</button>
+                    <label for="import-file-input" class="add-btn"><i class="fa-solid fa-file-import"></i> Importieren</label>
+                    <input type="file" id="import-file-input" style="display: none;" accept=".json">
+                    <button type="button" id="clear-data-btn" class="add-btn delete-btn"><i class="fa-solid fa-trash"></i> Formular leeren</button>
+                </div>
+                <div class="autosave-container">
+                    <label for="autosave-toggle">Automatisch speichern</label>
+                    <label class="switch">
+                        <input type="checkbox" id="autosave-toggle">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </header>
+
+            <form id="cv-form">
+                <section data-section-id="design">
+                    <h2 class="section-title">Design & Farbe</h2>
+                    <div id="color-palette">
+                        <!-- Farb-Swatches werden hier per JS eingefügt -->
+                    </div>
+                </section>
+
+                <section data-section-id="personal">
+                    <h2 class="section-title">Allgemeine Daten</h2>
+                    <div class="input-group">
+                        <input type="text" id="firstname" placeholder="Vorname" required>
+                        <input type="text" id="lastname" placeholder="Nachname" required>
+                    </div>
+                    <label for="photo-upload" class="photo-upload-label">
+                        <span>Foto hochladen</span>
+                        <input type="file" id="photo-upload" accept="image/*">
+                    </label>
+                    <div class="photo-shape-selector">
+                        <span>Form des Fotos:</span>
+                        <label><input type="radio" name="photo-shape" value="circle" checked> Kreis</label>
+                        <label><input type="radio" name="photo-shape" value="rounded"> Abgerundet</label>
+                        <label><input type="radio" name="photo-shape" value="square"> Quadrat</label>
+                    </div>
+                    <div class="photo-size-selector">
+                        <label for="photo-size">Größe: <span id="photo-size-value">120</span>px</label>
+                        <input type="range" id="photo-size" min="50" max="200" value="120">
+                    </div>
+                    <div class="photo-position-selector">
+                        <span>Position:</span>
+                        <label><input type="radio" name="photo-position" value="left"> Links</label>
+                        <label><input type="radio" name="photo-position" value="center" checked> Mitte</label>
+                        <label><input type="radio" name="photo-position" value="right"> Rechts</label>
+                    </div>
+                    <input type="text" id="position" placeholder="Position (z.B. Projektmanager)" required>
+                </section>
+
+                <h2 class="section-title">Linke Spalte (Seitenleiste)</h2>
+                <div id="sortable-sections-left">
+                    <section data-section-id="personal">
+                        <h2 class="section-title"><span class="section-controls"><button type="button" class="move-section-btn" data-direction="up">▲</button><button type="button" class="move-section-btn" data-direction="down">▼</button></span> Persönliche Details</h2>
+                        <input type="text" id="birthdate" placeholder="Geburtsdatum (z.B. 01.01.1990)">
+                        <input type="text" id="marital-status" placeholder="Personenstand (z.B. ledig)">
+                        <input type="text" id="nationality" placeholder="Staatsbürgerschaft (z.B. deutsch)">
+                        <input type="text" id="driving-license" placeholder="Führerschein (z.B. Klasse B)">
+                    </section>
+                    <section data-section-id="contact">
+                        <h2 class="section-title"><span class="section-controls"><button type="button" class="move-section-btn" data-direction="up">▲</button><button type="button" class="move-section-btn" data-direction="down">▼</button></span> Kontakt</h2>
+                        <input type="email" id="email" placeholder="E-Mail-Adresse" required>
+                        <input type="tel" id="phone" placeholder="Telefonnummer" required>
+                        <input type="text" id="location" placeholder="Wohnort (z.B. Berlin, Deutschland)">
+                        <input type="text" id="website" placeholder="Website / LinkedIn">
+                    </section>
+                    <section data-section-id="skills">
+                        <h2 class="section-title"><span class="section-controls"><button type="button" class="move-section-btn" data-direction="up">▲</button><button type="button" class="move-section-btn" data-direction="down">▼</button></span> Fähigkeiten</h2>
+                        <div id="skill-fields">
+                            <!-- Dynamische Felder für Fähigkeiten werden hier eingefügt -->
+                        </div>
+                        <button type="button" id="add-skill-btn" class="add-btn">+ Fähigkeit hinzufügen</button>
+                    </section>
+                    <section data-section-id="languages">
+                        <h2 class="section-title"><span class="section-controls"><button type="button" class="move-section-btn" data-direction="up">▲</button><button type="button" class="move-section-btn" data-direction="down">▼</button></span> Sprachkenntnisse</h2>
+                        <div id="language-fields">
+                            <!-- Dynamische Felder für Sprachkenntnisse werden hier eingefügt -->
+                        </div>
+                        <button type="button" id="add-language-btn" class="add-btn">+ Sprache hinzufügen</button>
+                    </section>
+                </div>
+
+                <h2 class="section-title">Rechte Spalte (Hauptinhalt)</h2>
+                <div id="sortable-sections-right">
+                    <section data-section-id="profile">
+                        <h2 class="section-title"><span class="section-controls"><button type="button" class="move-section-btn" data-direction="up">▲</button><button type="button" class="move-section-btn" data-direction="down">▼</button></span> Persönliches Profil</h2>
+                        <textarea id="profile" placeholder="Ein kurzer Abschnitt, in dem Ihre relevanten Erfahrungen und Qualifikationen zusammengefasst werden." rows="5"></textarea>
+                    </section>
+                    <section data-section-id="experience">
+                        <h2 class="section-title"><span class="section-controls"><button type="button" class="move-section-btn" data-direction="up">▲</button><button type="button" class="move-section-btn" data-direction="down">▼</button></span> Berufserfahrung</h2>
+                        <div id="experience-fields">
+                            <!-- Dynamische Felder für Berufserfahrung werden hier eingefügt -->
+                        </div>
+                        <button type="button" id="add-experience-btn" class="add-btn">+ Berufserfahrung hinzufügen</button>
+                    </section>
+                    <section data-section-id="education">
+                        <h2 class="section-title"><span class="section-controls"><button type="button" class="move-section-btn" data-direction="up">▲</button><button type="button" class="move-section-btn" data-direction="down">▼</button></span> Ausbildung</h2>
+                        <div id="education-fields">
+                            <!-- Dynamische Felder für Ausbildung werden hier eingefügt -->
+                        </div>
+                        <button type="button" id="add-education-btn" class="add-btn">+ Ausbildung hinzufügen</button>
+                    </section>
+                    <section data-section-id="weiterbildung">
+                        <h2 class="section-title"><span class="section-controls"><button type="button" class="move-section-btn" data-direction="up">▲</button><button type="button" class="move-section-btn" data-direction="down">▼</button></span> Weiterbildung & Zertifikate</h2>
+                        <div id="weiterbildung-fields">
+                            <!-- Dynamische Felder für Weiterbildung werden hier eingefügt -->
+                        </div>
+                        <button type="button" id="add-weiterbildung-btn" class="add-btn">+ Weiterbildung hinzufügen</button>
+                    </section>
+                </div>
+                <button type="submit" class="submit-btn">PDF generieren</button>
+            </form>
+        </div>
+
+        <!-- Rechte Spalte: Vorschau -->
+        <div class="preview-panel">
+            <div class="preview-wrapper">
+                <div id="resume-preview">
+                    <!-- Neue Zwei-Spalten-Struktur für die Vorschau -->
+                    <div class="preview-left-column">
+                        <img id="preview-photo" src="" alt="Profilbild" class="photo-circle" style="display: none;">
+                        <div id="sortable-preview-left">
+                            <div id="preview-personal-details-section" class="preview-section" data-section-id="personal" style="display: none;">
+                                <h2 class="preview-title">Persönliches</h2>
+                                <p id="preview-birthdate"><i class="fa-solid fa-calendar-day icon"></i> <span>[Geburtsdatum]</span></p>
+                                <p id="preview-marital-status"><i class="fa-solid fa-ring icon"></i> <span>[Personenstand]</span></p>
+                                <p id="preview-nationality"><i class="fa-solid fa-flag icon"></i> <span>[Staatsbürgerschaft]</span></p>
+                                <p id="preview-driving-license"><i class="fa-solid fa-id-card icon"></i> <span>[Führerschein]</span></p>
+                            </div>
+        
+                            <div id="preview-contact-section" class="preview-section" data-section-id="contact">
+                                <h2 class="preview-title">Kontakt</h2>
+                                <p id="preview-phone"><i class="fa-solid fa-phone icon"></i> <span>[Telefon]</span></p>
+                                <p id="preview-email"><i class="fa-solid fa-envelope icon"></i> <span>[E-Mail]</span></p>
+                                <p id="preview-location"><i class="fa-solid fa-location-dot icon"></i> <span>[Wohnort]</span></p>
+                                <p id="preview-website"><i class="fa-brands fa-linkedin icon"></i> <span>[Website]</span></p>
+                            </div>
+        
+                            <div id="preview-skill-section" class="preview-section" data-section-id="skills" style="display: none;">
+                                <h2 class="preview-title">Fähigkeiten</h2>
+                                <ul id="preview-skill-list"></ul>
+                            </div>
+                            <div id="preview-language-section" class="preview-section" data-section-id="languages" style="display: none;">
+                                <h2 class="preview-title">Sprachkenntnisse</h2>
+                                <ul id="preview-language-list"></ul>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="preview-right-column">
+                        <div class="preview-header">
+                            <h2 class="resume-title">Lebenslauf</h2>
+                            <h1 id="preview-name">[Vorname Nachname]</h1>
+                            <p id="preview-position" class="position-title">[Position]</p>
+                        </div>
+                        <div id="sortable-preview-right">
+                            <div id="preview-profile-section" class="preview-section" data-section-id="profile" style="display: none;"><h2 class="preview-title">Profil</h2><p id="preview-profile"></p></div>
+                            <div id="preview-experience-section" class="preview-section" data-section-id="experience" style="display: none;"><h2 class="preview-title">Berufserfahrung</h2><div id="preview-experience-list"></div></div>
+                            <div id="preview-education-section" class="preview-section" data-section-id="education" style="display: none;"><h2 class="preview-title">Ausbildung</h2><div id="preview-education-list"></div></div>
+                            <div id="preview-weiterbildung-section" class="preview-section" data-section-id="weiterbildung" style="display: none;"><h2 class="preview-title">Weiterbildung</h2><div id="preview-weiterbildung-list"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feedback Section -->
+    <button onclick="openFeedbackModal()" class="feedback-btn">
+        <i class="fa-solid fa-comment-dots"></i>
+        <span>Feedback</span>
+    </button>
+
+    <div id="feedbackModal" class="feedback-modal-overlay">
+        <div class="feedback-modal-content">
+            <div class="feedback-modal-header">Feedback geben <button onclick="closeFeedbackModal()" class="feedback-close-btn">&times;</button></div>
+            <div class="feedback-modal-body">
+                <form id="feedbackForm" action="https://formspree.io/f/mzdnepyn" method="POST">
+                    <input type="email" name="email" placeholder="Deine E-Mail (optional)">
+                    <textarea name="message" required rows="4" placeholder="Was kann ich verbessern?"></textarea>
+                    <button type="submit" class="submit-btn">Absenden</button>
+                </form>
+                <div id="feedbackSuccess" style="display: none;" class="feedback-success-message">Vielen Dank für Ihr Feedback!</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
