@@ -257,11 +257,6 @@ function updatePreview() {
         if (previewSectionLeft) previewLeftContainer.appendChild(previewSectionLeft);
     });
 
-    // Auto-Save, wenn aktiviert
-    if (document.getElementById('autosave-toggle').checked) {
-        saveData(false); // Speichern ohne Benachrichtigung
-    }
-
     // Farbe aktualisieren
     const selectedColorSwatch = document.querySelector('#color-palette .selected');
     const primaryColor = selectedColorSwatch ? selectedColorSwatch.dataset.color : Object.keys(PREDEFINED_COLORS)[0];
@@ -269,7 +264,14 @@ function updatePreview() {
     const previewElement = document.getElementById('resume-preview');
     previewElement.style.setProperty('--primary-color', primaryColor);
     previewElement.style.setProperty('--primary-color-text', textColor);
-
+    
+    // Hilfsfunktion für Auto-Save
+    const triggerAutoSave = () => {
+        if (document.getElementById('autosave-toggle').checked) {
+            saveData(false); // Speichern ohne Benachrichtigung
+        }
+    };
+    
     // Foto aktualisieren
     const photoInput = document.getElementById('photo-upload');
     const photoPreview = document.getElementById('preview-photo');
@@ -278,8 +280,11 @@ function updatePreview() {
         reader.onload = function(e) {
             photoPreview.src = e.target.result;
             photoPreview.style.display = 'block';
+            triggerAutoSave(); // Auto-Save NACHDEM das Bild geladen wurde.
         }
         reader.readAsDataURL(photoInput.files[0]);
+    } else {
+        triggerAutoSave(); // Auto-Save für alle anderen Änderungen auslösen.
     }
 
     // Wenn ein Foto da ist, die Form, Größe und Position aktualisieren
